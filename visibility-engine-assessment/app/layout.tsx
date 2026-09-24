@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
-import { Montserrat } from 'next/font/google';
 import './globals.css';
 
-const body = Montserrat({ variable: '--font-body', subsets: ['latin'], weight: ['400', '500', '600', '700'] });
 
 export const metadata: Metadata = {
   title: 'Visibility Assessment | Inspired Vibe',
@@ -10,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body className={body.variable}>{children}</body></html>;
+  return <html lang="en"><body>{children}</body></html>;
 }

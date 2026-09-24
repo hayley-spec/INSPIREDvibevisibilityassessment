@@ -7,8 +7,8 @@ import { sections, flatQuestions, maturityBand } from '../lib/assessment';
 import { assessmentCopy as copy } from '../lib/assessment-copy';
 
 const icons = [Target, Lightbulb, Share2, Search, Funnel, ChartNoAxesCombined];
-function BrandHeader({ progress }: { progress?: number }) {
-  return <header className="assessment-header"><img src="/inspired-vibe-logo.svg" alt="Inspired Vibe — Business Development Agency" width="270" height="80" />
+function BrandHeader({ progress, navy = false }: { progress?: number; navy?: boolean }) {
+  return <header className={navy ? "assessment-header assessment-header-navy" : "assessment-header"}><img src={navy ? "/official-white-logo.png" : "/inspired-vibe-logo.svg"} alt="Inspired Vibe — Business Development Agency" width="270" height="80" />
     {progress !== undefined && <div className="header-progress"><div><span>Your progress</span><strong>{progress}% complete</strong></div><Progress aria-label="Assessment progress" value={progress} /></div>}
   </header>;
 }
@@ -18,7 +18,7 @@ export function QuestionScreen({ current, selected, onSelect, onNext, onBack }: 
   const section = sections[question.sectionIndex];
   const progress = Math.round((current + 1) / 24 * 100);
   return <main className="assessment-design">
-    <BrandHeader progress={progress} />
+    <BrandHeader progress={progress} navy />
     <div className="question-stage">
       <section className="question-panel">
         <p className="design-eyebrow">Section {question.sectionIndex + 1} of 6</p>
@@ -36,8 +36,8 @@ export function QuestionScreen({ current, selected, onSelect, onNext, onBack }: 
         <div className="question-navigation"><button onClick={onBack} className="design-back"><ArrowLeft /> Back</button><Button onClick={onNext} disabled={selected === undefined} className="design-cta">{current === 23 ? 'Continue to results' : 'Next question'}<ArrowRight /></Button></div>
       </section>
       <aside className="question-sidebar">
-        <div className="question-photo" role="img" aria-label="Inspired Vibe leadership conversation" />
-        <div className="dimension-guide"><p><Star /> {copy.welcome.dimensionsHeading}</p><ul>{sections.map((item, index) => { const Icon = icons[index]; return <li key={item.name} aria-current={index === question.sectionIndex ? 'step' : undefined}><Icon /><span>{item.name}</span></li>; })}</ul></div>
+        <div className="question-photo" role="img" aria-label="Inspired Vibe team meeting" />
+        <div className="dimension-guide"><p><img className="brand-star" src="/official-star.png" alt="" /> {copy.welcome.dimensionsHeading}</p><ul>{sections.map((item, index) => { const Icon = icons[index]; return <li key={item.name} aria-current={index === question.sectionIndex ? 'step' : undefined}><Icon /><span>{item.name}</span></li>; })}</ul></div>
       </aside>
     </div>
     <footer className="honesty-note"><ShieldCheck /><p>Answer based on what is <strong>actually happening today,</strong><br />not what is planned for next quarter.</p></footer>

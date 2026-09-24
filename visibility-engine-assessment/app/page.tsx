@@ -1,17 +1,16 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ArrowLeft, ArrowRight, Clock3, Layers3 } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { QuestionScreen, ResultsScreen } from '@/components/assessment-screens';
 import { SectionBackground } from '@/components/section-background';
 import { ContactScreen, type ContactDetails } from '@/components/contact-screen';
 import './assessment-design.css';
-import { assessmentCopy as copy } from '@/lib/assessment-copy';
 import { flatQuestions, sections } from '@/lib/assessment';
 
-type Phase = 'welcome' | 'section' | 'question' | 'contact' | 'results';
-type SavedState = { phase: Phase; current: number; answers: Record<number, number>; submissionId?: string; submitted?: boolean };
+type Phase = 'section' | 'question' | 'contact' | 'results';
+type SavedState = { phase: Phase | 'welcome'; current: number; answers: Record<number, number>; submissionId?: string; submitted?: boolean };
 type ModelContext = { registerTool: (tool: unknown, options?: { signal?: AbortSignal }) => void | Promise<void> };
 
 declare global { interface Document { readonly modelContext?: ModelContext } }
@@ -19,7 +18,7 @@ declare global { interface Document { readonly modelContext?: ModelContext } }
 const STORAGE_KEY = 'visibility-assessment-v2';
 
 export default function Home() {
-  const [phase, setPhase] = useState<Phase>('welcome');
+  const [phase, setPhase] = useState<Phase>('section');
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [ready, setReady] = useState(false);
@@ -39,10 +38,10 @@ export default function Home() {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved) as SavedState;
-        setPhase(parsed.phase === 'results' && !parsed.submitted ? 'contact' : parsed.phase);
+        setPhase(parsed.phase === 'welcome' ? 'section' : parsed.phase === 'results' && !parsed.submitted ? 'contact' : parsed.phase);
         if (parsed.submissionId) setSubmissionId(parsed.submissionId);
         setSubmitted(Boolean(parsed.submitted));
-        setCurrent(parsed.current);
+        setCurrent(parsed.phase === 'welcome' ? 0 : parsed.current);
         setAnswers(parsed.answers ?? {});
       }
     } catch { /* Start fresh if saved data is unavailable. */ }
@@ -122,7 +121,7 @@ export default function Home() {
   const restart = () => {
     setContact({ name: '', email: '' });
     setSubmissionId(crypto.randomUUID()); setSubmitted(false); setSubmitError('');
-    setAnswers({}); setCurrent(0); setPhase('welcome'); localStorage.removeItem(STORAGE_KEY);
+    setAnswers({}); setCurrent(0); setPhase('section'); localStorage.removeItem(STORAGE_KEY);
   };
 
   const submitAssessment = async () => {
@@ -160,8 +159,7 @@ export default function Home() {
 
   if (!ready) return <main className="survey-shell min-h-screen" />;
 
-  if (phase === 'welcome') return <Welcome onStart={() => { setCurrent(0); setPhase('section'); }} />;
-  if (phase === 'section') return <SectionIntro sectionIndex={activeQuestion.sectionIndex} onStart={() => setPhase('question')} onBack={activeQuestion.sectionIndex === 0 ? () => setPhase('welcome') : () => { setCurrent(current - 1); setPhase('question'); }} />;
+  if (phase === 'section') return <SectionIntro sectionIndex={activeQuestion.sectionIndex} onStart={() => setPhase('question')} onBack={activeQuestion.sectionIndex === 0 ? undefined : () => { setCurrent(current - 1); setPhase('question'); }} />;
   if (phase === 'results') return <ResultsScreen score={overallScore} dimensions={dimensionScores} onRestart={restart} />;
   if (phase === 'contact') return <ContactScreen contact={contact} onChange={setContact} pending={pending} error={submitError}
     onBack={() => { setCurrent(23); setPhase('question'); }}
@@ -170,11 +168,7 @@ export default function Home() {
   return <QuestionScreen current={current} selected={selected} onSelect={value => setAnswers(previous => ({ ...previous, [current]: value }))} onNext={goNext} onBack={goBack} />;
 }
 
-function Welcome({ onStart }: { onStart: () => void }) {
-  return <main className="survey-shell min-h-screen overflow-hidden"><div className="survey-grid" aria-hidden="true" /><section className="relative mx-auto flex min-h-screen w-full max-w-7xl items-center px-5 py-12 sm:px-10 lg:px-16"><div className="grid w-full items-end gap-12 lg:grid-cols-[minmax(0,1fr)_22rem]"><div className="max-w-4xl"><div className="mb-8 flex items-center gap-3 text-sm font-semibold uppercase tracking-[.19em] text-[var(--signal)]"><span className="h-px w-10 bg-current" />{copy.welcome.eyebrow}</div><h1 className="max-w-4xl font-heading text-[clamp(3.25rem,7vw,7.25rem)] font-semibold leading-[.88] tracking-[-.015em] text-balance">{copy.welcome.headline}</h1><div className="mt-9 max-w-2xl space-y-5 text-lg leading-8 text-white">{copy.welcome.paragraphs.map(text => <p key={text}>{text}</p>)}</div><Button onClick={onStart} className="mt-10 h-14 rounded-md bg-[var(--signal)] px-7 text-sm font-semibold uppercase tracking-wide text-white shadow-[0_14px_34px_rgba(191,45,50,.24)] hover:bg-[var(--signal-dark)]">Start My Assessment <ArrowRight className="ml-2 size-5" /></Button></div><aside className="mb-1 rounded-lg border border-white/20 bg-white p-7 text-[var(--ink)] shadow-[0_24px_70px_rgba(0,0,0,.18)]"><p className="text-sm font-semibold uppercase tracking-[.16em] text-[var(--signal)]">What you’ll receive</p><p className="mt-4 text-2xl font-semibold leading-tight">{copy.welcome.receive}</p><div className="mt-8 grid grid-cols-2 gap-3"><div className="rounded-md bg-[var(--paper-deep)] p-4"><Clock3 className="mb-6 size-5 text-[var(--signal)]" /><p className="text-2xl font-semibold">~10</p><p className="text-sm text-[var(--ink-soft)]">minutes</p></div><div className="rounded-md bg-[var(--paper-deep)] p-4"><Layers3 className="mb-6 size-5 text-[var(--signal)]" /><p className="text-2xl font-semibold">24</p><p className="text-sm text-[var(--ink-soft)]">questions</p></div></div><p className="mt-6 border-t border-black/10 pt-5 text-sm leading-6 text-[var(--ink-soft)]">{copy.welcome.honesty}</p></aside></div></section><section className="welcome-dimensions"><h2>{copy.welcome.dimensionsHeading}</h2><div>{sections.map(section => <article key={section.name}><h3>{section.name}</h3><p>{section.lead}</p></article>)}</div><p>{copy.welcome.note}</p></section></main>;
-}
-
-function SectionIntro({ sectionIndex, onStart, onBack }: { sectionIndex: number; onStart: () => void; onBack: () => void }) {
+function SectionIntro({ sectionIndex, onStart, onBack }: { sectionIndex: number; onStart: () => void; onBack?: () => void }) {
   const section = sections[sectionIndex];
-return <main className="survey-shell min-h-screen overflow-hidden"><SectionBackground /><section className="relative mx-auto flex min-h-screen w-full max-w-5xl items-center px-5 py-12 sm:px-10"><div className="w-full"><button onClick={onBack} className="mb-12 flex items-center gap-2 text-sm font-semibold text-white transition hover:text-white"><ArrowLeft className="size-4" /> Back</button><div className="grid gap-10 lg:grid-cols-[9rem_minmax(0,1fr)]"><div><p className="text-sm font-semibold uppercase tracking-[.18em] text-[var(--signal)]">Section</p><p className="mt-2 font-heading text-8xl font-semibold tracking-normal">0{sectionIndex + 1}</p><p className="mt-4 text-sm text-white">4 questions</p></div><div><p className="text-lg font-semibold uppercase text-[var(--teal)]">{section.name}</p><h1 className="mt-5 max-w-3xl font-heading text-[clamp(2.8rem,6vw,5.8rem)] font-semibold leading-[.92] tracking-normal text-balance">{section.lead}</h1><p className="mt-7 max-w-2xl text-lg leading-8 text-white">{section.description}</p><Button onClick={onStart} className="mt-10 h-13 rounded-md bg-[var(--signal)] px-7 text-sm font-semibold uppercase tracking-wide text-white hover:bg-[var(--signal-dark)]">{section.cta} <ArrowRight className="ml-2 size-4" /></Button></div></div></div></section></main>;
+return <main className="survey-shell min-h-screen overflow-hidden"><SectionBackground /><section className="relative mx-auto flex min-h-screen w-full max-w-5xl items-center px-5 py-12 sm:px-10"><div className="w-full">{onBack && <button onClick={onBack} className="mb-12 flex items-center gap-2 text-sm font-semibold text-white transition hover:text-white"><ArrowLeft className="size-4" /> Back</button>}<div className="grid gap-10 lg:grid-cols-[9rem_minmax(0,1fr)]"><div><p className="text-sm font-bold uppercase tracking-[.18em] text-[var(--signal)]">Section</p><p className="mt-2 font-heading text-8xl font-semibold tracking-normal">0{sectionIndex + 1}</p><p className="mt-4 text-sm text-white">4 questions</p></div><div><p className="text-lg font-bold uppercase text-[var(--teal)]">{section.name}</p><h1 className="mt-5 max-w-3xl font-heading text-[clamp(2.8rem,6vw,5.8rem)] font-semibold leading-[.92] tracking-normal text-balance">{section.lead}</h1><p className="mt-7 max-w-2xl text-lg leading-8 text-white">{section.description}</p><Button onClick={onStart} className="mt-10 h-13 rounded-md bg-[var(--signal)] px-7 text-sm font-semibold uppercase tracking-wide text-white hover:bg-[var(--signal-dark)]">{section.cta} <ArrowRight className="ml-2 size-4" /></Button></div></div></div></section></main>;
 }
