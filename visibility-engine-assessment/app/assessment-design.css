@@ -96,7 +96,7 @@
 .assessment-design .context-transition h2 { text-transform: none; }
 
 /* Client brand feedback: question pages across all six dimensions. */
-.assessment-header-navy { background: #022D41; color: #FFFFFF; border-bottom: 1px solid #1AA6B7; }
+.assessment-header-navy { background: #022D41; color: #FFFFFF; border-bottom: 0; }
 .assessment-header-navy .header-progress strong { color: #FFFFFF; }
 .assessment-header-navy [data-slot="progress"] { background: #FFFFFF; height: 12px; }
 .assessment-header-navy [data-slot="progress-indicator"] { background: #1AA6B7; }
@@ -108,3 +108,11 @@
 .question-sidebar .dimension-guide { margin-top: 0; border-color: #1AA6B7; }
 .dimension-guide .brand-star { width: 46px; height: 46px; flex-shrink: 0; object-fit: contain; }
 @media(max-width:700px) { .question-sidebar { margin-top: 24px; } .question-photo { display: block; height: auto; aspect-ratio: 3 / 2; } }
+
+/* The track must occupy the whole bar, not the component's 4px default. */
+.assessment-design [data-slot="progress"] { display: block; overflow: hidden; }
+.assessment-design [data-slot="progress-track"] { height: 100%; width: 100%; background: #E9DDDB; }
+.assessment-design [data-slot="progress-indicator"] { height: 100%; background: #1AA6B7; }
+.assessment-header-navy [data-slot="progress-track"] { background: #FFFFFF; }
+.question-photo { border-radius: 20px; }
+.question-photo::after { content: ''; position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 28px 12px #022D41; }
