@@ -116,3 +116,35 @@
 .assessment-header-navy [data-slot="progress-track"] { background: #FFFFFF; }
 .question-photo { border-radius: 20px; }
 .question-photo::after { content: ''; position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 28px 12px #022D41; }
+
+/* Landscape framing keeps both speakers visible and crops out the graphic surround. */
+.question-sidebar .question-photo { height: auto; aspect-ratio: 1.6; background-image: url('/podcast-conversation.png'); background-size: 118% auto; background-position: 65% 49%; }
+.question-sidebar .question-photo::before { background-size: 42px 100%; }
+.question-sidebar .question-photo::after { box-shadow: inset 0 0 18px 6px #022D41; }
+
+/* Keep the official header logo unfiltered at every responsive breakpoint. */
+.assessment-header > img {
+  filter: none;
+  box-shadow: none;
+  text-shadow: none;
+  background: transparent;
+  border: 0;
+  opacity: 1;
+  mix-blend-mode: normal;
+}
+
+/* Restore the original generous, edge-reaching desktop image composition. */
+@media(min-width:1001px) {
+  .question-sidebar { gap: 48px; }
+  .question-sidebar .question-photo {
+    margin-top: 0;
+    width: calc(100% + max(24px, (100vw - 1280px) / 2));
+    height: auto;
+    aspect-ratio: 1.25;
+    border-radius: 0;
+    background-size: auto 130%;
+    background-position: 62% 49%;
+  }
+  .question-sidebar .question-photo::before { background-size: 62px 100%; }
+  .question-sidebar .question-photo::after { box-shadow: inset 0 -18px 22px -12px #022D41; }
+}

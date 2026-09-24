@@ -26,6 +26,5 @@ export function SectionBackground() {
       </video>}
       <div className="section-video-overlay" />
     </div>
-    {enabled && <button type="button" className="section-video-toggle" onClick={() => setPlaying(value => !value)}>{playing ? 'Pause background' : 'Play background'}</button>}
   </>;
 }

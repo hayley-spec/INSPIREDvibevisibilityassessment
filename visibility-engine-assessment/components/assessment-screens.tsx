@@ -8,7 +8,7 @@ import { assessmentCopy as copy } from '../lib/assessment-copy';
 
 const icons = [Target, Lightbulb, Share2, Search, Funnel, ChartNoAxesCombined];
 function BrandHeader({ progress, navy = false }: { progress?: number; navy?: boolean }) {
-  return <header className={navy ? "assessment-header assessment-header-navy" : "assessment-header"}><img src={navy ? "/official-white-logo.png" : "/inspired-vibe-logo.svg"} alt="Inspired Vibe — Business Development Agency" width="270" height="80" />
+  return <header className={navy ? "assessment-header assessment-header-navy" : "assessment-header"}><img src={navy ? "/official-white-logo.png" : "/inspired-vibe-logo.svg"} alt="INSPIRED Vibe — Business Development Agency" width="270" height="80" />
     {progress !== undefined && <div className="header-progress"><div><span>Your progress</span><strong>{progress}% complete</strong></div><Progress aria-label="Assessment progress" value={progress} /></div>}
   </header>;
 }
@@ -36,7 +36,7 @@ export function QuestionScreen({ current, selected, onSelect, onNext, onBack }: 
         <div className="question-navigation"><button onClick={onBack} className="design-back"><ArrowLeft /> Back</button><Button onClick={onNext} disabled={selected === undefined} className="design-cta">{current === 23 ? 'Continue to results' : 'Next question'}<ArrowRight /></Button></div>
       </section>
       <aside className="question-sidebar">
-        <div className="question-photo" role="img" aria-label="Inspired Vibe team meeting" />
+        <div className="question-photo" role="img" aria-label="INSPIRED Vibe podcast conversation" />
         <div className="dimension-guide"><p><img className="brand-star" src="/official-star.png" alt="" /> {copy.welcome.dimensionsHeading}</p><ul>{sections.map((item, index) => { const Icon = icons[index]; return <li key={item.name} aria-current={index === question.sectionIndex ? 'step' : undefined}><Icon /><span>{item.name}</span></li>; })}</ul></div>
       </aside>
     </div>
@@ -63,7 +63,7 @@ export function ResultsScreen({ score, dimensions, onRestart }: { score: number;
       <p className="overall-number">{score}<span>/ 100</span></p><p className="maturity-badge">{maturityBand(score)}</p>
       <Paragraphs items={copy.hero.paragraphs} />
       <div className="results-manifesto"><Star fill="currentColor" /><p>{copy.hero.emphasis}</p></div>
-    </div><div className="results-hero-photo" role="img" aria-label="Inspired Vibe leadership conversation" /></section>
+    </div><div className="results-hero-photo" role="img" aria-label="INSPIRED Vibe leadership conversation" /></section>
     <div className="results-content">
       <section className="band-panel"><div><h2>{band.title}</h2><Paragraphs items={band.paragraphs} /></div><div className="band-range"><h3>Where your score falls</h3><strong>{band.range}</strong><span>{band.name}</span></div></section>
       <section className="dimension-breakdown"><h2>{copy.breakdown.headline}</h2><div className="breakdown-intro"><Paragraphs items={copy.breakdown.paragraphs} /></div><div className="dimension-grid">{dimensions.map((d, index) => { const Icon = icons[index]; const gap = !allEqual && d.score === low; return <article key={d.name} className={gap ? 'dimension-score is-gap' : 'dimension-score'}><Icon /><h3>{d.name}</h3><div className="score-circle" style={{ '--score': d.score } as CSSProperties} aria-label={d.name + ': ' + d.score + ' out of 100'}><div><strong>{d.score}</strong><span>/100</span></div></div><p>{copy.breakdown.descriptions[index]}</p></article>; })}</div></section>
@@ -87,7 +87,7 @@ export function ResultsScreen({ score, dimensions, onRestart }: { score: number;
         <p>{copy.priority.paragraphs[3]}</p><p className="diagnostic-note">{copy.priority.note}</p>
       </div></section>
       <section className="context-transition"><h2>{copy.transition}</h2></section>
-      <section className="review-panel"><div><p className="design-eyebrow">{copy.review.eyebrow}</p><h2>{copy.review.headline}</h2><Paragraphs items={copy.review.paragraphs} /><ul>{copy.review.bullets.map(text => <li key={text}>{text}</li>)}</ul><a className="design-cta" href="https://inspiredvibe.com/contact/" target="_blank" rel="noopener noreferrer">{copy.review.cta}<ArrowRight /></a><p className="review-note">{copy.review.microcopy}</p></div><div className="review-photo" role="img" aria-label="A conversation with Inspired Vibe" /></section>
+      <section className="review-panel"><div><p className="design-eyebrow">{copy.review.eyebrow}</p><h2>{copy.review.headline}</h2><Paragraphs items={copy.review.paragraphs} /><ul>{copy.review.bullets.map(text => <li key={text}>{text}</li>)}</ul><a className="design-cta" href="https://inspiredvibe.com/contact/" target="_blank" rel="noopener noreferrer">{copy.review.cta}<ArrowRight /></a><p className="review-note">{copy.review.microcopy}</p></div><div className="review-photo" role="img" aria-label="A conversation with INSPIRED Vibe" /></section>
       <div className="results-footer"><span>24 questions · Six equally weighted dimensions · Based on your self-assessment</span><button className="design-back" onClick={onRestart}><RotateCcw /> Retake assessment</button></div>
     </div>
   </main>;

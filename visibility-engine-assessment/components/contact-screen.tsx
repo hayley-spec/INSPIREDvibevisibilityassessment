@@ -12,7 +12,7 @@ export function ContactScreen({ contact, onChange, onBack, onSubmit, pending, er
 }) {
   return <main className="assessment-design">
     <header className="assessment-header">
-      <img src="/inspired-vibe-logo.svg" alt="Inspired Vibe — Business Development Agency" width="270" height="80" />
+      <img src="/inspired-vibe-logo.svg" alt="INSPIRED Vibe — Business Development Agency" width="270" height="80" />
     </header>
     <section className="contact-stage">
       <div className="question-panel contact-panel">
@@ -32,7 +32,7 @@ export function ContactScreen({ contact, onChange, onBack, onSubmit, pending, er
               disabled={pending} maxLength={254} spellCheck={false} autoCapitalize="none"
               value={contact.email} onChange={event => onChange({ ...contact, email: event.target.value })} />
           </div>
-          <p className="contact-note">By submitting, you share your name, email, answers, and scores with Inspired Vibe for assessment review. Your results will appear on the next screen.</p>
+          <p className="contact-note">By submitting, you share your name, email, answers, and scores with INSPIRED Vibe for assessment review. Your results will appear on the next screen.</p>
           {error && <p className="submission-error" role="alert">{error}</p>}
           <div className="question-navigation">
             <button type="button" disabled={pending} className="design-back" onClick={onBack}><ArrowLeft /> Back</button>

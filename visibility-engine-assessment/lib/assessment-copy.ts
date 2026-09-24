@@ -149,7 +149,7 @@ export const assessmentCopy = {
     "paragraphs": [
       "Your Authority Score shows the pattern.",
       "An Authority Score Review puts that pattern in the context of your business, buyers, and sales process.",
-      "On this free review, the founders of Inspired Vibe will help you look deeper at:"
+      "On this free review, the founders of INSPIRED Vibe will help you look deeper at:"
     ],
     "bullets": [
       "what is already helping buyers trust your business before the call",

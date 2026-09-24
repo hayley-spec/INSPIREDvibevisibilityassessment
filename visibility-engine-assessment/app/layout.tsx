@@ -3,7 +3,7 @@ import './globals.css';
 
 
 export const metadata: Metadata = {
-  title: 'Visibility Assessment | Inspired Vibe',
+  title: 'Visibility Assessment | INSPIRED Vibe',
   description: 'Discover your Authority Score and how much buyer trust your expertise builds before the sales call.',
 };
 

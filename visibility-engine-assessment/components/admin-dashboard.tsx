@@ -61,9 +61,9 @@ export default function AdminDashboard() {
   }
   const visible = rows.filter(row => (row.name + ' ' + row.email).toLowerCase().includes(search.toLowerCase()));
   return <main className="assessment-design admin-design">
-    <header className="assessment-header"><img src="/inspired-vibe-logo.svg" alt="Inspired Vibe" width="270" height="80" /><span>Private assessment results</span></header>
+    <header className="assessment-header"><img src="/inspired-vibe-logo.svg" alt="INSPIRED Vibe" width="270" height="80" /><span>Private assessment results</span></header>
     <div className="admin-container">
-      <div className="admin-heading"><div><p className="design-eyebrow">Inspired Vibe · Admin</p><h1>Assessment results</h1></div>{authenticated && <button className="design-back" disabled={busy} onClick={logout}>Log out</button>}</div>
+      <div className="admin-heading"><div><p className="design-eyebrow">INSPIRED Vibe · Admin</p><h1>Assessment results</h1></div>{authenticated && <button className="design-back" disabled={busy} onClick={logout}>Log out</button>}</div>
       {error && <p role="alert" className="submission-error">{error}</p>}
       {!authenticated ? <form onSubmit={login} className="question-panel admin-login" aria-busy={busy}>
         <h2>Enter your admin password</h2><p>Names, email addresses, and assessment responses are only available after login.</p>
