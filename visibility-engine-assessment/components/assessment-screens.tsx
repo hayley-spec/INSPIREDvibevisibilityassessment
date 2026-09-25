@@ -67,6 +67,7 @@ export function ResultsScreen({ score, dimensions }: { score: number; dimensions
       <p className="overall-number">{score}<span>/ 100</span></p><p className="maturity-badge">{maturityBand(score)}</p>
       <Paragraphs items={copy.hero.paragraphs} />
       <div className="results-manifesto"><p>{copy.hero.emphasis}</p></div>
+      <a className="design-cta results-hero-cta" href="#book-your-review">{copy.review.cta}<ArrowRight /></a>
     </div><div className="results-hero-star" aria-hidden="true" /></section></div>
     <div className="results-content">
       <section className="band-panel"><div><h2>{band.title}</h2><Paragraphs items={band.paragraphs} /></div><div className="band-range"><strong>{band.range}</strong><span>{band.name}</span></div></section>
@@ -95,7 +96,7 @@ export function ResultsScreen({ score, dimensions }: { score: number; dimensions
         <p>{copy.priority.paragraphs[3]}</p><p className="diagnostic-note">{copy.priority.note}</p>
       </div></section>
       <section className="context-transition"><h2>{copy.transition}</h2><div className="results-video-placeholder" role="img" aria-label="Video placeholder — video to be supplied"><span className="video-placeholder-icon" aria-hidden="true">▶</span><p>Video placeholder</p></div></section></div>
-      <section className="review-panel"><div><p className="design-eyebrow">{copy.review.eyebrow}</p><h2>{copy.review.headline}</h2><Paragraphs items={copy.review.paragraphs} /><ul>{copy.review.bullets.map(text => <li key={text}>{text}</li>)}</ul><div className="review-booking-strip"><p className="review-note">{copy.review.microcopy}</p><a className="design-cta" href="https://inspiredvibe.com/contact/" target="_blank" rel="noopener noreferrer">{copy.review.cta}<ArrowRight /></a></div></div><div className="review-photo" role="img" aria-label="Christin and Amber, INSPIRED Vibe co-founders" /></section>
+      <section className="review-panel" id="book-your-review"><div><p className="design-eyebrow">{copy.review.eyebrow}</p><h2>{copy.review.headline}</h2><Paragraphs items={copy.review.paragraphs} /><ul>{copy.review.bullets.map(text => <li key={text}>{text}</li>)}</ul><div className="review-booking-strip"><p className="review-note">{copy.review.microcopy}</p><a className="design-cta" href="https://meetings-na2.hubspot.com/amber-halvorson/inspired-vibe-discovery-session" target="_blank" rel="noopener noreferrer">{copy.review.cta}<ArrowRight /></a></div></div><div className="review-photo" role="img" aria-label="Christin and Amber, INSPIRED Vibe co-founders" /></section>
     </div>
   </main>;
 }
