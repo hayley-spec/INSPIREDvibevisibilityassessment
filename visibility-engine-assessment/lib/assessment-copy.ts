@@ -152,10 +152,10 @@ export const assessmentCopy = {
       "On this free review, the founders of INSPIRED Vibe will help you look deeper at:"
     ],
     "bullets": [
-      "what is already helping buyers trust your business before the call",
-      "where your expertise is still hard to find or understand",
-      "where sales may be rebuilding credibility from scratch",
-      "which gap can create the most leverage first"
+      "What is already helping buyers trust your business before the call",
+      "Where your expertise is still hard to find or understand",
+      "Where sales may be rebuilding credibility from scratch",
+      "Which gap can create the most leverage first"
     ],
     "cta": "Book Your Free Authority Score Review Call",
     "microcopy": "You completed the assessment. We will start with what your results already tell us."
