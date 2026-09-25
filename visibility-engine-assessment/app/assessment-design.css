@@ -504,3 +504,6 @@
   font-size: 16px;
   line-height: 1.4;
 }
+
+.results-design .results-hero-cta { margin-top: 24px; max-width: 100%; }
+.results-design #book-your-review { scroll-margin-top: 24px; }
