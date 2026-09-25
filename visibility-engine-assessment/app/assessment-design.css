@@ -492,3 +492,6 @@
 @media(max-width:360px) {
   .results-design .buyer-journey h3 { font-size: 20px; }
 }
+
+/* Keep the results header on one seamless brand-teal canvas. */
+.results-design .results-masthead::before { content: none; }
