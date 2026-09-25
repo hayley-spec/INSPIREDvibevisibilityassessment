@@ -159,6 +159,23 @@ export default function Home() {
 
   if (!ready) return <main className="survey-shell min-h-screen" />;
 
+  // Local design review only: sample data never creates a submission.
+  if (['localhost', '127.0.0.1', '[::1]'].includes(window.location.hostname)
+    && new URLSearchParams(window.location.search).get('preview') === 'results') {
+    // Per-dimension totals out of 16 keep each fixture consistent with the scoring formula.
+    const fixtures: Record<string, number[]> = {
+      low: [2, 3, 4, 5, 6, 7], middle: [6, 7, 8, 9, 10, 11],
+      high: [11, 12, 13, 14, 15, 16], equal: [8, 8, 8, 8, 8, 8],
+      ties: [12, 12, 8, 4, 4, 8], zero: [0, 0, 0, 0, 0, 0], perfect: [16, 16, 16, 16, 16, 16],
+    };
+    const fixture = new URLSearchParams(window.location.search).get('case') || '';
+    const totals = Object.prototype.hasOwnProperty.call(fixtures, fixture) ? fixtures[fixture] : [12, 8, 10, 6, 10, 12];
+    const sampleScores = totals.map(total => Math.round(total / 16 * 100));
+    const sampleScore = Math.round(totals.reduce((sum, total) => sum + total, 0) / 96 * 100);
+    return <ResultsScreen score={sampleScore} dimensions={sections.map((section, index) => ({ name: section.name, score: sampleScores[index] }))} onRestart={() => window.location.assign('/')} />;
+  }
+
+
   if (phase === 'section') return <SectionIntro sectionIndex={activeQuestion.sectionIndex} onStart={() => setPhase('question')} onBack={activeQuestion.sectionIndex === 0 ? undefined : () => { setCurrent(current - 1); setPhase('question'); }} />;
   if (phase === 'results') return <ResultsScreen score={overallScore} dimensions={dimensionScores} onRestart={restart} />;
   if (phase === 'contact') return <ContactScreen contact={contact} onChange={setContact} pending={pending} error={submitError}
