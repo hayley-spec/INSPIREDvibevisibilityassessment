@@ -495,3 +495,12 @@
 
 /* Keep the results header on one seamless brand-teal canvas. */
 .results-design .results-masthead::before { content: none; }
+
+/* Keep section labels legible and consistent throughout the results page. */
+.results-design .design-eyebrow,
+.results-design .results-hero .design-eyebrow,
+.results-design .insight-card .design-eyebrow,
+.results-design .priority-panel .design-eyebrow {
+  font-size: 16px;
+  line-height: 1.4;
+}
