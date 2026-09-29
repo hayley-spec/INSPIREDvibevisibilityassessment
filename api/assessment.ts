@@ -2,8 +2,9 @@ import { createHmac } from 'node:crypto';
 import { repository } from '../server/database.js';
 import { digest, parseSubmission, randomToken, verifyPassword } from '../server/security.js';
 import { answerSnapshot, calculateResults } from '../server/scoring.js';
+import { sendAssessmentWebhook } from '../server/webhook.js';
 
-export function createHandler(repo = repository) {
+export function createHandler(repo = repository, deliver = sendAssessmentWebhook) {
   return async function handler(req: any, res: any) {
     res.setHeader('Cache-Control', 'private, no-store, max-age=0');
     res.setHeader('X-Content-Type-Options', 'nosniff');
@@ -31,8 +32,11 @@ export function createHandler(repo = repository) {
         const key = createHmac('sha256', secret).update('submit:' + ip).digest('hex');
         if (!await repo.allow(key, 30, 3600)) return send(429, { error: 'Too many submissions. Please try again later.' });
         const result = calculateResults(input.answers);
+        const answers = answerSnapshot(input.answers);
         await repo.save({ id: input.id, version: input.version, name: input.name, email: input.email,
-          payloadHash: digest(JSON.stringify(input)), answers: answerSnapshot(input.answers), result });
+          payloadHash: digest(JSON.stringify(input)), answers, result });
+        await deliver({ id: input.id, version: input.version, name: input.name,
+          email: input.email, answers, result });
         return send(201, { id: input.id, result });
       }
       if (action === 'login' && req.method === 'POST') {
@@ -61,6 +65,8 @@ export function createHandler(repo = repository) {
       const message = error instanceof Error ? error.message : '';
       if (message === 'INVALID_SUBMISSION') return send(400, { error: 'Please provide a valid name, email, and all 24 answers.' });
       if (message === 'SUBMISSION_CONFLICT') return send(409, { error: 'This submission was already saved with different details. Please restart the assessment to submit again.' });
+      if (message === 'WEBHOOK_NOT_CONFIGURED' || message === 'WEBHOOK_DELIVERY_FAILED')
+        return send(503, { error: 'Your assessment was saved, but delivery is delayed. Please retry to see your results; your answers are still here.' });
       // Never log request bodies, credentials, or database errors containing personal data.
       return send(503, { error: 'We could not connect to the results service. Please try again. Your answers are still here.' });
     }
