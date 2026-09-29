@@ -67,7 +67,7 @@ export function ResultsScreen({ score, dimensions }: { score: number; dimensions
       <p className="overall-number">{score}<span>/ 100</span></p><p className="maturity-badge">{maturityBand(score)}</p>
       <Paragraphs items={copy.hero.paragraphs} />
       <div className="results-manifesto"><p>{copy.hero.emphasis}</p></div>
-      <a className="design-cta results-hero-cta" href="#book-your-review">{copy.review.cta}<ArrowRight /></a>
+      <a className="design-cta results-hero-cta" href="https://buildyourbusiness.inspiredvibe.com/m-va-booking" target="_blank" rel="noopener noreferrer">{copy.review.cta}<ArrowRight /></a>
     </div><div className="results-hero-star" aria-hidden="true" /></section></div>
     <div className="results-content">
       <section className="band-panel"><div><h2>{band.title}</h2><Paragraphs items={band.paragraphs} /></div><div className="band-range"><strong>{band.range}</strong><span>{band.name}</span></div></section>
