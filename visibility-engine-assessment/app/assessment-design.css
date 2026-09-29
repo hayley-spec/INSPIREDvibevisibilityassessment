@@ -507,3 +507,8 @@
 
 .results-design .results-hero-cta { margin-top: 24px; max-width: 100%; }
 .results-design #book-your-review { scroll-margin-top: 24px; }
+
+/* Equal scores have no relative strongest area or priority. */
+.results-design .insight-grid.is-even-results { display: none; }
+.results-design .priority-video-row.is-even-results { grid-template-columns: minmax(0,1fr); max-width: 820px; margin-inline: auto; }
+.results-design .priority-video-row.is-even-results .priority-panel { display: none; }
