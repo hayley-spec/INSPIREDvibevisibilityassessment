@@ -72,7 +72,7 @@ export function ResultsScreen({ score, dimensions }: { score: number; dimensions
     <div className="results-content">
       <section className="band-panel"><div><h2>{band.title}</h2><Paragraphs items={band.paragraphs} /></div><div className="band-range"><strong>{band.range}</strong><span>{band.name}</span></div></section>
       <section className="dimension-breakdown"><h2>{copy.breakdown.headline}</h2><div className="breakdown-intro"><Paragraphs items={copy.breakdown.paragraphs} /></div><div className="dimension-grid">{dimensions.map((d, index) => { const Icon = icons[index]; const gap = !allEqual && d.score === low; return <article key={d.name} className={gap ? 'dimension-score is-gap' : 'dimension-score'}><Icon /><h3>{d.name}</h3><div className="score-circle" style={{ '--score': d.score } as CSSProperties} aria-label={d.name + ': ' + d.score + ' out of 100'}><div><strong>{d.score}</strong><span>/100</span></div></div><p>{copy.breakdown.descriptions[index]}</p></article>; })}</div></section>
-      <div className={strengths.length > 1 || gaps.length > 1 ? "insight-grid has-tied-results" : "insight-grid"}>
+      <div className={allEqual ? "insight-grid is-even-results" : strengths.length > 1 || gaps.length > 1 ? "insight-grid has-tied-results" : "insight-grid"}>
         <section className="insight-card strength-card"><Trophy /><div>
           <p className="design-eyebrow">{copy.strength.eyebrow}</p>
           {strengths.length === 1 && <h2>Your strongest area is {strengths[0].name}</h2>}
@@ -89,7 +89,7 @@ export function ResultsScreen({ score, dimensions }: { score: number; dimensions
         </div></section>
       </div>
       <section className="buyer-journey"><div><h2>{copy.journey.headline}</h2><Paragraphs items={copy.journey.paragraphs} /><p className="copy-emphasis">{copy.journey.endpoint}</p></div><ol>{copy.journey.steps.map((step,index) => { const Icon = journeyIcons[index]; return <li key={step.title}><Icon /><h3>{step.title}</h3><p>{step.copy}</p></li>; })}</ol></section>
-      <div className={gaps.length > 1 ? "priority-video-row has-tied-results" : "priority-video-row"}><section className="priority-panel"><Target /><div><p className="design-eyebrow">{copy.priority.eyebrow}</p>
+      <div className={allEqual ? "priority-video-row is-even-results" : gaps.length > 1 ? "priority-video-row has-tied-results" : "priority-video-row"}><section className="priority-panel"><Target /><div><p className="design-eyebrow">{copy.priority.eyebrow}</p>
         {gaps.length === 1 && <h2>Start with {gaps[0].name}</h2>}
         <Paragraphs items={copy.priority.paragraphs.slice(0,2)} />
         <div className={gaps.length > 1 ? "tied-result-grid" : undefined}>{gaps.map(d => <ResultExplanation key={d.name} title={`Start with ${d.name}`} tied={gaps.length > 1}><p>{copy.priority.paragraphs[2].replace('[DYNAMIC PRIORITY AREA]', d.name)}</p><Paragraphs items={copy.priorities[d.index].paragraphs} /></ResultExplanation>)}</div>
