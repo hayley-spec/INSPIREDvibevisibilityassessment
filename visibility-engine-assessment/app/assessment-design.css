@@ -244,6 +244,14 @@
 .results-design .context-transition { padding: 24px; text-align: left; }
 .results-design .context-transition h2 { font-size: 23px; line-height: 1.4; margin: 0 0 24px; }
 .results-video-placeholder { aspect-ratio: 16/9; background: #022D41; color: #FFFFFF; border: 2px solid #1AA6B7; border-radius: 12px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px; }
+.results-video { width: 100%; max-width: 900px; margin-inline: auto; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 10px; background: #022D41; }
+.results-video iframe { display: block; width: 100%; height: 100%; border: 0; }
+.results-video-poster { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: 0; background: #022D41; cursor: pointer; }
+.results-video-poster img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.results-video-poster:focus-visible { outline: 4px solid #BF2D32; outline-offset: -4px; }
+.results-video-play { position: absolute; left: 15%; bottom: 11%; display: grid; place-items: center; width: clamp(48px, 7vw, 72px); height: clamp(48px, 7vw, 72px); border-radius: 50%; background: #BF2D32; color: #FFFFFF; box-shadow: 0 4px 16px rgba(2,45,65,.35); transition: transform .2s ease, background-color .2s ease; }
+.results-video-play svg { width: 38%; height: 38%; margin-left: 4px; }
+.results-video-poster:hover .results-video-play { transform: scale(1.08); background: #FE424D; }
 .results-video-placeholder p { font: 500 14px/1.5 'Montserrat', Arial, sans-serif; margin: 0; }
 .video-placeholder-icon { width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; background: #FFFFFF; color: #BF2D32; padding-left: 3px; }
 .results-design .review-panel { display: block; border: 1px solid #E9DDDB; background: #FFFFFF; margin-top: 16px; }
@@ -507,6 +515,3 @@
 
 .results-design .results-hero-cta { margin-top: 24px; max-width: 100%; }
 .results-design #book-your-review { scroll-margin-top: 24px; }
-
-.results-video { width: 100%; max-width: 900px; margin-inline: auto; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 10px; background: #022D41; }
-.results-video iframe { display: block; width: 100%; height: 100%; border: 0; }
