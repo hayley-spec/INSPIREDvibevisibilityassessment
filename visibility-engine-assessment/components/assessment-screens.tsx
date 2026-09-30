@@ -1,5 +1,5 @@
-import type { CSSProperties, ReactNode } from 'react';
-import { ArrowLeft, ArrowRight, ChartNoAxesCombined, Lightbulb, Share2, Search, Funnel, Target, Trophy, TriangleAlert, ShieldCheck, Users, MessagesSquare } from 'lucide-react';
+import { useState, type CSSProperties, type ReactNode } from 'react';
+import { ArrowLeft, ArrowRight, ChartNoAxesCombined, Lightbulb, Share2, Search, Funnel, Target, Trophy, TriangleAlert, ShieldCheck, Users, MessagesSquare, Play } from 'lucide-react';
 import { Button } from './ui/button';
 import { Progress } from './ui/progress';
 import { RadioGroup, RadioGroupItem } from './ui/radio-group';
@@ -46,6 +46,17 @@ export function QuestionScreen({ current, selected, onSelect, onNext, onBack }: 
 
 function Paragraphs({ items }: { items: string[] }) {
   return <>{items.map((text, index) => <p key={index}>{text}</p>)}</>;
+}
+
+function AssessmentVideo() {
+  const [playing, setPlaying] = useState(false);
+  return <div className="results-video">
+    {playing ? <iframe src="https://player.vimeo.com/video/1231447535?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1" title="Your Authority Score video" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+      : <button type="button" className="results-video-poster" onClick={() => setPlaying(true)} aria-label="Play the Your Authority Score video">
+        <img src="/authority-score-video-thumbnail.png" alt="INSPIRED Vibe founders — Your Authority Score" width="1672" height="941" />
+        <span className="results-video-play" aria-hidden="true"><Play fill="currentColor" /></span>
+      </button>}
+  </div>;
 }
 
 function ResultExplanation({ title, tied, children }: { title: string; tied: boolean; children: ReactNode }) {
@@ -95,7 +106,7 @@ export function ResultsScreen({ score, dimensions }: { score: number; dimensions
         <div className={gaps.length > 1 ? "tied-result-grid" : undefined}>{gaps.map(d => <ResultExplanation key={d.name} title={`Start with ${d.name}`} tied={gaps.length > 1}><p>{copy.priority.paragraphs[2].replace('[DYNAMIC PRIORITY AREA]', d.name)}</p><Paragraphs items={copy.priorities[d.index].paragraphs} /></ResultExplanation>)}</div>
         <p>{copy.priority.paragraphs[3]}</p><p className="diagnostic-note">{copy.priority.note}</p>
       </div></section>
-      <section className="context-transition"><h2>{copy.transition}</h2><div className="results-video"><iframe src="https://player.vimeo.com/video/1231447535?badge=0&autopause=0&player_id=0&app_id=58479" title="Step 3 VSL simple text" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen loading="lazy" /></div></section></div>
+      <section className="context-transition"><h2>{copy.transition}</h2><AssessmentVideo /></section></div>
       <section className="review-panel" id="book-your-review"><div><p className="design-eyebrow">{copy.review.eyebrow}</p><h2>{copy.review.headline}</h2><Paragraphs items={copy.review.paragraphs} /><ul>{copy.review.bullets.map(text => <li key={text}>{text}</li>)}</ul><div className="review-booking-strip"><p className="review-note">{copy.review.microcopy}</p><a className="design-cta" href="https://buildyourbusiness.inspiredvibe.com/m-va-booking" target="_blank" rel="noopener noreferrer">{copy.review.cta}<ArrowRight /></a></div></div><div className="review-photo" role="img" aria-label="Christin and Amber, INSPIRED Vibe co-founders" /></section>
     </div>
   </main>;
