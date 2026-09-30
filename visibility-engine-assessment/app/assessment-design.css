@@ -520,7 +520,14 @@
 .results-design .review-panel .review-photo {
   background-image: url('/review-conversation.jpg');
   background-position: 56% center;
+  align-self: stretch;
+  height: 100%;
+  aspect-ratio: auto;
 }
 @media (max-width:700px) {
-  .results-design .review-panel .review-photo { background-position: 56% center; }
+  .results-design .review-panel .review-photo {
+    background-position: 56% center;
+    height: auto;
+    aspect-ratio: 1.6;
+  }
 }
