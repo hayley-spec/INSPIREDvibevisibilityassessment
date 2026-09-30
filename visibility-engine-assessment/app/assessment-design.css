@@ -519,7 +519,7 @@
 /* Use a distinct client conversation photo below the video. */
 .results-design .review-panel .review-photo {
   background-image: url('/review-conversation.jpg');
-  background-position: 56% center;
+  background-position: 78% center;
   align-self: stretch;
   height: 100%;
   aspect-ratio: auto;
