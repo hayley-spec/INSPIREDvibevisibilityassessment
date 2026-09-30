@@ -515,3 +515,12 @@
 
 .results-design .results-hero-cta { margin-top: 24px; max-width: 100%; }
 .results-design #book-your-review { scroll-margin-top: 24px; }
+
+/* Use a distinct client conversation photo below the video. */
+.results-design .review-panel .review-photo {
+  background-image: url('/review-conversation.jpg');
+  background-position: 56% center;
+}
+@media (max-width:700px) {
+  .results-design .review-panel .review-photo { background-position: 56% center; }
+}
