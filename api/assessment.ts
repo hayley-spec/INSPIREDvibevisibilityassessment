@@ -35,9 +35,18 @@ export function createHandler(repo = repository, deliver = sendAssessmentWebhook
         const answers = answerSnapshot(input.answers);
         await repo.save({ id: input.id, version: input.version, name: input.name, email: input.email,
           payloadHash: digest(JSON.stringify(input)), answers, result });
-        await deliver({ id: input.id, version: input.version, name: input.name,
-          email: input.email, answers, result });
-        return send(201, { id: input.id, result });
+        let delivery: 'sent' | 'failed' = 'sent';
+        try {
+          await deliver({ id: input.id, version: input.version, name: input.name,
+            email: input.email, answers, result });
+        } catch (error) {
+          if (!(error instanceof Error) || !['WEBHOOK_NOT_CONFIGURED', 'WEBHOOK_DELIVERY_FAILED'].includes(error.message)) throw error;
+          // The saved score belongs to the visitor even when an integration is unavailable.
+          // Log a code only; never log contact details or assessment answers.
+          console.error('assessment_webhook_delivery_failed', error.message);
+          delivery = 'failed';
+        }
+        return send(201, { id: input.id, result, delivery });
       }
       if (action === 'login' && req.method === 'POST') {
         const ip = process.env.VERCEL ? String(req.headers['x-vercel-forwarded-for'] ?? req.headers['x-forwarded-for'] ?? 'unknown').split(',')[0].trim() : req.socket?.remoteAddress ?? 'local';
@@ -65,8 +74,8 @@ export function createHandler(repo = repository, deliver = sendAssessmentWebhook
       const message = error instanceof Error ? error.message : '';
       if (message === 'INVALID_SUBMISSION') return send(400, { error: 'Please provide a valid name, email, and all 24 answers.' });
       if (message === 'SUBMISSION_CONFLICT') return send(409, { error: 'This submission was already saved with different details. Please restart the assessment to submit again.' });
-      if (message === 'WEBHOOK_NOT_CONFIGURED' || message === 'WEBHOOK_DELIVERY_FAILED')
-        return send(503, { error: 'Your assessment was saved, but delivery is delayed. Please retry to see your results; your answers are still here.' });
+      
+        
       // Never log request bodies, credentials, or database errors containing personal data.
       return send(503, { error: 'We could not connect to the results service. Please try again. Your answers are still here.' });
     }
