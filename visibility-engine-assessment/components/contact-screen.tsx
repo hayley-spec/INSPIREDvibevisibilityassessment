@@ -11,8 +11,8 @@ export function ContactScreen({ contact, onChange, onBack, onSubmit, pending, er
   error: string;
 }) {
   return <main className="assessment-design">
-    <header className="assessment-header">
-      <img src="/inspired-vibe-logo.svg" alt="INSPIRED Vibe — Business Development Agency" width="270" height="80" />
+    <header className="assessment-header assessment-header-navy">
+      <img src="/official-white-logo.png" alt="INSPIRED Vibe — Business Development Agency" width="270" height="80" />
     </header>
     <section className="contact-stage">
       <div className="question-panel contact-panel">
@@ -38,6 +38,7 @@ export function ContactScreen({ contact, onChange, onBack, onSubmit, pending, er
             <button type="button" disabled={pending} className="design-back" onClick={onBack}><ArrowLeft /> Back</button>
             <button type="submit" disabled={pending} className="design-cta">{pending ? 'Saving your results…' : 'See my results'} <ArrowRight /></button>
           </div>
+          <p className="contact-reentry-note">For privacy and security reasons, please enter your name and email again.</p>
         </form>
       </div>
     </section>
