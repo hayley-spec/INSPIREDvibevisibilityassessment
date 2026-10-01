@@ -36,9 +36,11 @@ export function ContactScreen({ contact, onChange, onBack, onSubmit, pending, er
           {error && <p className="submission-error" role="alert">{error}</p>}
           <div className="question-navigation">
             <button type="button" disabled={pending} className="design-back" onClick={onBack}><ArrowLeft /> Back</button>
-            <button type="submit" disabled={pending} className="design-cta">{pending ? 'Saving your results…' : 'See my results'} <ArrowRight /></button>
+            <div className="contact-submit-group">
+              <button type="submit" disabled={pending} className="design-cta">{pending ? 'Saving your results…' : 'See my results'} <ArrowRight /></button>
+              <p className="contact-reentry-note">For privacy and security reasons, please enter your name and email again.</p>
+            </div>
           </div>
-          <p className="contact-reentry-note">For privacy and security reasons, please enter your name and email again.</p>
         </form>
       </div>
     </section>
