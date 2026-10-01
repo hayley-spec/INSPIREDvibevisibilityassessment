@@ -72,7 +72,7 @@ export function ResultsScreen({ score, dimensions }: { score: number; dimensions
   const allEqual = high === low;
   const band = copy.bands[score < 40 ? 0 : score < 60 ? 1 : score < 80 ? 2 : 3];
   const journeyIcons = [Search, ShieldCheck, Users, MessagesSquare];
-  return <main className="assessment-design results-design"><div className="results-masthead"><BrandHeader />
+  return <main className="assessment-design results-design"><div className="results-masthead"><BrandHeader navy />
     <section className="results-hero"><div className="results-hero-copy">
       <p className="design-eyebrow">{copy.hero.eyebrow}</p><h1>Your Authority Score is</h1>
       <p className="overall-number">{score}<span>/ 100</span></p><p className="maturity-badge">{maturityBand(score)}</p>
