@@ -57,7 +57,8 @@
 .contact-field input{display:block;width:100%;min-height:52px;border:1px solid #aeb5bb;border-radius:7px;background:white;color:var(--navy);padding:12px 14px;font:inherit}
 .contact-field input:focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
 .contact-note{font-size:14px;color:#022d41}
-.contact-reentry-note{margin:12px 0 0;font:500 14px/1.5 'Montserrat',Arial,sans-serif;color:#022d41}
+.contact-submit-group{display:flex;flex-direction:column;align-items:flex-end;max-width:330px}
+.contact-reentry-note{margin:12px 0 0;font:500 14px/1.5 'Montserrat',Arial,sans-serif;color:#022d41;text-align:right}
 .results-hero .overall-number{font-size:86px;line-height:1.1}
 .question-photo,.review-photo{filter:none;overflow:hidden;background:none}
 .question-photo::before,.review-photo::before{content:'';position:absolute;inset:0;background:url('/assessment-background.png') 96% center/auto 100% no-repeat;filter:grayscale(1)}
