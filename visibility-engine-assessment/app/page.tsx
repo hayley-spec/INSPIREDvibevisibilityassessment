@@ -37,12 +37,18 @@ export default function Home() {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
-        const parsed = JSON.parse(saved) as SavedState;
-        setPhase(parsed.phase === 'welcome' ? 'section' : parsed.phase === 'results' && !parsed.submitted ? 'contact' : parsed.phase);
-        if (parsed.submissionId) setSubmissionId(parsed.submissionId);
-        setSubmitted(Boolean(parsed.submitted));
-        setCurrent(parsed.phase === 'welcome' ? 0 : parsed.current);
-        setAnswers(parsed.answers ?? {});
+        // A new visit starts at Section 1; reloading preserves progress.
+        const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
+        if (navigation?.type === 'navigate') {
+          localStorage.removeItem(STORAGE_KEY);
+        } else {
+          const parsed = JSON.parse(saved) as SavedState;
+          setPhase(parsed.phase === 'welcome' ? 'section' : parsed.phase === 'results' && !parsed.submitted ? 'contact' : parsed.phase);
+          if (parsed.submissionId) setSubmissionId(parsed.submissionId);
+          setSubmitted(Boolean(parsed.submitted));
+          setCurrent(parsed.phase === 'welcome' ? 0 : parsed.current);
+          setAnswers(parsed.answers ?? {});
+        }
       }
     } catch { /* Start fresh if saved data is unavailable. */ }
     setReady(true);
