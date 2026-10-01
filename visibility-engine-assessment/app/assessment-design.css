@@ -533,3 +533,18 @@
     aspect-ratio: 1.6;
   }
 }
+
+/* Approved results palette and typography. */
+.results-design .results-masthead,
+.results-design .results-masthead .assessment-header,
+.results-design .results-masthead .results-hero { background: #022D41; }
+.results-design .results-hero-copy,
+.results-design .results-hero h1,
+.results-design .results-hero .overall-number,
+.results-design .results-manifesto { color: #FFFFFF; }
+.results-design .results-hero .design-eyebrow { color: #1AA6B7; }
+.results-design .results-hero .maturity-badge { background: #1AA6B7; color: #022D41; }
+.assessment-design :is(h1,h2,h3), .survey-shell :is(h1,h2,h3) { font-family: 'Balboa Bold', Impact, sans-serif !important; font-weight: 700; text-transform: uppercase; }
+.assessment-design .design-eyebrow, .survey-shell p.uppercase { font-family: 'Montserrat', Arial, sans-serif; text-transform: uppercase; }
+.assessment-design p:not(.overall-number), .survey-shell p { font-family: 'Montserrat', Arial, sans-serif; }
+.results-design .results-manifesto strong { color: #FFFFFF; }
