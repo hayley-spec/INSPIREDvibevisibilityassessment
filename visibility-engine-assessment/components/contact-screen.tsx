@@ -32,13 +32,14 @@ export function ContactScreen({ contact, onChange, onBack, onSubmit, pending, er
               disabled={pending} maxLength={254} spellCheck={false} autoCapitalize="none"
               value={contact.email} onChange={event => onChange({ ...contact, email: event.target.value })} />
           </div>
+          <p className="contact-note mb-3">For privacy and security reasons, please enter your name and email again.</p>
           <p className="contact-note">By submitting, you share your name, email, answers, and scores with INSPIRED Vibe for assessment review. Your results will appear on the next screen.</p>
           {error && <p className="submission-error" role="alert">{error}</p>}
           <div className="question-navigation">
             <button type="button" disabled={pending} className="design-back" onClick={onBack}><ArrowLeft /> Back</button>
             <div className="contact-submit-group">
               <button type="submit" disabled={pending} className="design-cta">{pending ? 'Saving your results…' : 'See my results'} <ArrowRight /></button>
-              <p className="contact-reentry-note">For privacy and security reasons, please enter your name and email again.</p>
+              
             </div>
           </div>
         </form>
