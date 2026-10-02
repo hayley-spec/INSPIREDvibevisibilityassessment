@@ -23,7 +23,7 @@ export function ContactScreen({ contact, onChange, onBack, onSubmit, pending, er
           <div className="contact-field">
             <label htmlFor="assessment-name">Name <span>(required)</span></label>
             <input id="assessment-name" name="name" type="text" autoComplete="name" required
-              disabled={pending} maxLength={120} pattern={'.*\S.*'} title="Please enter your name, not just spaces."
+              disabled={pending} maxLength={120}
               value={contact.name} onChange={event => onChange({ ...contact, name: event.target.value })} />
           </div>
           <div className="contact-field">
