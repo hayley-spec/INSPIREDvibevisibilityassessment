@@ -548,3 +548,25 @@
 .assessment-design .design-eyebrow, .survey-shell p.uppercase { font-family: 'Montserrat', Arial, sans-serif; text-transform: uppercase; }
 .assessment-design p:not(.overall-number), .survey-shell p { font-family: 'Montserrat', Arial, sans-serif; }
 .results-design .results-manifesto strong { color: #FFFFFF; }
+
+
+/* Question prompts use Montserrat sentence case; section titles keep Balboa caps. */
+.assessment-design .question-panel #question-heading {
+  font-family: 'Montserrat', Arial, sans-serif !important;
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-transform: none;
+}
+@media (max-width: 700px) {
+  .assessment-design .question-panel #question-heading { font-size: 22px; }
+}
+
+/* Align closing review copy with the video panel above it. */
+@media (min-width: 701px) {
+  .results-design .review-panel {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 16px;
+  }
+}
