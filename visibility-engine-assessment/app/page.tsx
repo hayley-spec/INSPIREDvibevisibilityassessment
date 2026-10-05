@@ -22,12 +22,23 @@ export default function Home() {
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [ready, setReady] = useState(false);
-  // Contact details stay in memory, never in localStorage or a URL.
+  // Contact details stay in memory after optional URL prefill; never in localStorage.
   const [contact, setContact] = useState<ContactDetails>({ name: '', email: '' });
   const [submissionId, setSubmissionId] = useState(() => crypto.randomUUID());
   const [submitted, setSubmitted] = useState(false);
   const [pending, setPending] = useState(false);
   const [submitError, setSubmitError] = useState('');
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get('name');
+    const email = params.get('email');
+    if (name === null && email === null) return;
+    setContact(previous => ({
+      name: name === null ? previous.name : name.slice(0, 120),
+      email: email === null ? previous.email : email.slice(0, 254),
+    }));
+  }, []);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
