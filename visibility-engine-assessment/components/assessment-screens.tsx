@@ -51,7 +51,7 @@ function Paragraphs({ items }: { items: string[] }) {
 function AssessmentVideo() {
   const [playing, setPlaying] = useState(false);
   return <div className="results-video">
-    {playing ? <iframe src="https://drive.google.com/file/d/1mhuy8ns1NG-dHt6_qNGlJA3K8Amrfbgq/preview" title="Your Authority Score video" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+    {playing ? <video autoPlay controls playsInline preload="metadata" poster="/authority-score-video-thumbnail.png" style={{ display: "block", width: "100%", height: "100%" }} aria-label="Your Authority Score video"><source src="https://0flnhwvpo6xdv0hw.public.blob.vercel-storage.com/inspired-vibe-authority-score-video.mp4" type="video/mp4" />Your browser does not support this video.</video>
       : <button type="button" className="results-video-poster" onClick={() => setPlaying(true)} aria-label="Play the Your Authority Score video">
         <img src="/authority-score-video-thumbnail.png" alt="INSPIRED Vibe founders — Your Authority Score" width="1672" height="941" />
         <span className="results-video-play" aria-hidden="true"><Play fill="currentColor" /></span>
