@@ -327,7 +327,7 @@ export const sections: Section[] = [
         ]
       },
       {
-        "prompt": "How often do clients, partners, guests, or industry relationships help your expertise reach buyers beyond your existing audience?",
+        "prompt": "How often do customers, partners, or industry relationships help your expertise reach buyers beyond your existing audience?",
         "choices": [
           {
             "label": "A",
