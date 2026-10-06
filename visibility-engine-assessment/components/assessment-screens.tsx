@@ -51,9 +51,9 @@ function Paragraphs({ items }: { items: string[] }) {
 function AssessmentVideo() {
   const [playing, setPlaying] = useState(false);
   return <div className="results-video">
-    {playing ? <video autoPlay controls playsInline preload="metadata" poster="/authority-score-video-thumbnail.png" style={{ display: "block", width: "100%", height: "100%" }} aria-label="Your Authority Score video"><source src="https://0flnhwvpo6xdv0hw.public.blob.vercel-storage.com/inspired-vibe-authority-score-video.mp4" type="video/mp4" />Your browser does not support this video.</video>
+    {playing ? <video autoPlay controls playsInline preload="metadata" poster="/authority-score-video-thumbnail-oct06.png" style={{ display: "block", width: "100%", height: "100%" }} aria-label="Your Authority Score video"><source src="https://0flnhwvpo6xdv0hw.public.blob.vercel-storage.com/inspired-vibe-authority-score-video.mp4" type="video/mp4" />Your browser does not support this video.</video>
       : <button type="button" className="results-video-poster" onClick={() => setPlaying(true)} aria-label="Play the Your Authority Score video">
-        <img src="/authority-score-video-thumbnail.png" alt="INSPIRED Vibe founders — Your Authority Score" width="1672" height="941" />
+        <img src="/authority-score-video-thumbnail-oct06.png" alt="INSPIRED Vibe founders — Your Authority Score" width="1920" height="1080" />
         <span className="results-video-play" aria-hidden="true"><Play fill="currentColor" /></span>
       </button>}
   </div>;
@@ -107,7 +107,7 @@ export function ResultsScreen({ score, dimensions }: { score: number; dimensions
         <p>{copy.priority.paragraphs[3]}</p><p className="diagnostic-note">{copy.priority.note}</p>
       </div></section>
       <section className="context-transition"><h2>{copy.transition}</h2><AssessmentVideo /></section></div>
-      <section className="review-panel" id="book-your-review"><div><p className="design-eyebrow">{copy.review.eyebrow}</p><h2>{copy.review.headline}</h2><Paragraphs items={copy.review.paragraphs} /><ul>{copy.review.bullets.map(text => <li key={text}>{text}</li>)}</ul><div className="review-booking-strip"><p className="review-note">{copy.review.microcopy}</p><a className="design-cta" href="https://buildyourbusiness.inspiredvibe.com/m-va-booking" target="_blank" rel="noopener noreferrer">{copy.review.cta}<ArrowRight /></a></div></div><div className="review-photo" role="img" aria-label="INSPIRED Vibe founder in conversation with a guest" /></section>
+      <section className="review-panel" id="book-your-review"><div><p className="design-eyebrow">{copy.review.eyebrow}</p><h2>{copy.review.headline}</h2><Paragraphs items={copy.review.paragraphs} /><ul>{copy.review.bullets.map(text => <li key={text}>{text}</li>)}</ul><div className="review-booking-strip"><p className="review-note">{copy.review.microcopy}</p><a className="design-cta" href="https://buildyourbusiness.inspiredvibe.com/m-va-booking" target="_blank" rel="noopener noreferrer">{copy.review.cta}<ArrowRight /></a></div></div><div className="review-photo" role="img" aria-label="INSPIRED Vibe team meeting around a table" /></section>
     </div>
   </main>;
 }
