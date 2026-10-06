@@ -357,7 +357,7 @@ export const sections: Section[] = [
         ]
       },
       {
-        "prompt": "Who is responsible for making sure your expertise continues reaching and interacting with the right buyers?",
+        "prompt": "Who is responsible for making sure your expertise continues reaching and engaging with the right buyers?",
         "choices": [
           {
             "label": "A",
