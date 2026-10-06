@@ -455,7 +455,7 @@ export const sections: Section[] = [
         ]
       },
       {
-        "prompt": "When buyers find your podcasts, videos, articles, or other expertise, how easy is it for them to understand what the content is about and why it matters?",
+        "prompt": "When buyers find your podcasts, videos, articles, social channels, or other expertise, how easy is it for them to understand what the content is about and why it matters?",
         "choices": [
           {
             "label": "A",
