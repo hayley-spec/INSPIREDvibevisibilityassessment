@@ -570,3 +570,22 @@
     column-gap: 16px;
   }
 }
+
+
+/* Preserve the supplied photo while keeping the brand wave at its right edge. */
+.results-design .review-panel .review-photo {
+  background-image: url('/your-next-step-photo-oct06.png');
+  background-size: cover;
+  background-position: center center;
+  filter: none;
+  align-self: stretch;
+  height: 100%;
+  aspect-ratio: auto;
+}
+.results-design .review-panel .review-photo::after { content: none; }
+@media (max-width: 700px) {
+  .results-design .review-panel .review-photo {
+    height: auto;
+    aspect-ratio: 1;
+  }
+}
