@@ -90,12 +90,12 @@ export const sections: Section[] = [
           },
           {
             "label": "D",
-            "text": "Our point of view is clear and repeatable",
+            "text": "Our point of view is clear but not consistently visible.",
             "score": 3
           },
           {
             "label": "E",
-            "text": "Our point of view is clear, distinctive, and consistently visible",
+            "text": "Our point of view is distinctive and consistently visible.",
             "score": 4
           }
         ]
