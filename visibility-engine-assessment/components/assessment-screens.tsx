@@ -36,7 +36,7 @@ export function QuestionScreen({ current, selected, onSelect, onNext, onBack }: 
         <div className="question-navigation"><button onClick={onBack} className="design-back"><ArrowLeft /> Back</button><Button onClick={onNext} disabled={selected === undefined} className="design-cta">{current === 23 ? 'Continue to results' : 'Next question'}<ArrowRight /></Button></div>
       </section>
       <aside className="question-sidebar">
-        {question.sectionIndex === 0 ? <div className="question-photo question-photo-section-one"><img src="/section-one-podcast-oct06.png" alt="INSPIRED Vibe founders in a podcast conversation" width="2000" height="2000" /></div> : <div className="question-photo" role="img" aria-label="INSPIRED Vibe podcast conversation" />}
+        <div className="question-photo question-photo-section-one"><img src={question.sectionIndex === 0 ? "/section-one-podcast-oct06.png" : `/section-${question.sectionIndex + 1}-artwork.png`} alt={`INSPIRED Vibe — ${section.name}`} width="2000" height="2000" /></div>
         <div className="dimension-guide"><p><img className="brand-star" src="/official-star.png" alt="" /> {copy.welcome.dimensionsHeading}</p><ul>{sections.map((item, index) => { const Icon = icons[index]; return <li key={item.name} aria-current={index === question.sectionIndex ? 'step' : undefined}><Icon /><span>{item.name}</span></li>; })}</ul></div>
       </aside>
     </div>
