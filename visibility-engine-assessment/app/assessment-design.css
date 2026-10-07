@@ -602,3 +602,33 @@
 .question-photo-section-one img { display: block; width: 100%; height: auto; }
 .question-sidebar .question-photo-section-one::before,
 .question-sidebar .question-photo-section-one::after { content: none; }
+
+/* Keep each supplied wave; clip only the flat outer colour margin. */
+.question-sidebar .question-photo-section-one {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  --art-left: 182;
+  --art-top: 0;
+  --art-height: 2000;
+  aspect-ratio: calc(2000 - var(--art-left)) / var(--art-height);
+}
+.question-photo-section-one:has(img[src="/section-one-podcast-oct06.png"]) {
+  --art-left: 114; --art-top: 206; --art-height: 1586;
+}
+.question-photo-section-one:has(img[src="/section-5-artwork.png"]) { --art-left: 132; }
+.question-photo-section-one:has(img[src="/section-6-artwork.png"]) { --art-left: 159; }
+.question-photo-section-one img {
+  position: absolute;
+  max-width: none;
+  width: calc(200000% / (2000 - var(--art-left)));
+  height: auto;
+  left: calc(-100% * var(--art-left) / (2000 - var(--art-left)));
+  top: calc(-100% * var(--art-top) / var(--art-height));
+}
+.question-sidebar .dimension-guide {
+  width: 100%;
+  box-sizing: border-box;
+  align-self: center;
+  margin-inline: auto;
+}
