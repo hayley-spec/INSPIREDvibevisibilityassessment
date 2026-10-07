@@ -589,3 +589,21 @@
     aspect-ratio: 1;
   }
 }
+
+/* Preserve the full Section 1 photo, with its wave in a separate side strip. */
+.question-sidebar .question-photo-section-one {
+  height: auto;
+  aspect-ratio: auto;
+  padding-left: 28px;
+  background: #022D41;
+  border-radius: 0;
+  overflow: visible;
+}
+.question-photo-section-one img { display: block; width: 100%; height: auto; }
+.question-sidebar .question-photo-section-one::before {
+  inset: 0 auto 0 0;
+  width: 28px;
+  background: url('/question-wave.svg') center / 100% 100% no-repeat;
+  pointer-events: none;
+}
+.question-sidebar .question-photo-section-one::after { content: none; }
