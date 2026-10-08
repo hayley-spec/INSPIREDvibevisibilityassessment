@@ -632,3 +632,8 @@
   align-self: center;
   margin-inline: auto;
 }
+
+/* Keep results body paragraphs visually separate across all result variants. */
+.results-design :is(.results-hero-copy, .results-content) p:not(.design-eyebrow):not(.overall-number):not(.maturity-badge) + p:not(.design-eyebrow):not(.overall-number):not(.maturity-badge) {
+  margin-top: 16px;
+}
